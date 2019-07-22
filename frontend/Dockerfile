@@ -1,0 +1,13 @@
+FROM node:12.6-alpine
+
+WORKDIR /usr/app
+
+COPY package*.json ./
+
+COPY . .
+
+RUN npm install -qy
+
+EXPOSE 3000
+
+CMD ["npm", "start"]

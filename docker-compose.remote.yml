@@ -1,0 +1,51 @@
+version: '2'
+services:
+  backend:
+    build:
+      context: ./backend/
+    command: /usr/app/node_modules/.bin/nodemon src/index.js
+    volumes:
+      - ./backend/:/usr/app
+      - /usr/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - PORT=8080
+    labels:
+      - "traefik.frontend.rule=Host:api.blog.test"
+      - "traefik.port=8080"
+    depends_on:
+      - db
+    networks: 
+      - backend
+      - front
+  frontend:
+    build:
+      context: ./frontend/
+    command: npm start
+    volumes:
+      - ./frontend/:/usr/app
+      - /usr/app/node_modules
+    labels:
+      - "traefik.frontend.rule=Host:grocock.email"
+      - "traefik.port=3000"
+    depends_on:
+      - backend
+      - db
+    networks:
+      - proxy
+  db:
+    image: "postgres:11"
+    container_name: "db"
+    ports:
+      - "5432:5432"
+    volumes:
+      - "data:/var/lib/postgresql/data"
+    networks:
+        - backend
+volumes:
+  data:
+networks: 
+  backend:
+  proxy:
+    external: true
+    
