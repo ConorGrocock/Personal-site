@@ -21,6 +21,7 @@ services:
   frontend:
     build:
       context: ./frontend/
+      dockerfile: Dockerfile.prod
     command: npm start
     volumes:
       - ./frontend/:/usr/app
@@ -35,7 +36,6 @@ services:
       - proxy
   db:
     image: "postgres:11"
-    container_name: "db"
     ports:
       - "5432:5432"
     volumes:
