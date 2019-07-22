@@ -1,0 +1,6 @@
+.vscode/
+acme.json/
+data-node/
+traefik.toml/
+docker-compose.yml
+.DS_Store

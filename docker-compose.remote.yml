@@ -17,7 +17,7 @@ services:
       - db
     networks: 
       - backend
-      - front
+      - proxy
   frontend:
     build:
       context: ./frontend/
