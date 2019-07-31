@@ -19,17 +19,16 @@
     .social {
       position: absolute;
       top: 50vh;
-      left: 1%;
-      transform: translate(-50%, 0%);
+      //transform: translate(, 0%);
+      text-align: center;
 
       ul {
         list-style: none;
         li {
           text-decoration: none;
+          width: 50px;
+          height:50px;
           font-size: 125%;
-          a {
-            color: black;
-          }
         }
       }
     }
@@ -40,18 +39,22 @@
       left: 50%;
       transform: translate(-50%, 0%);
 
+      width: 90vw;
+
       font-family: "Source Sans Pro";
       text-align: center;
       letter-spacing: 5px;
       text-transform: uppercase;
+
       .name {
         font-weight: 400;
-        font-size: 300%;
+        font-size: 5vh;
         padding-bottom: 20px;
+
       }
       .tagline {
         font-weight: 500;
-        font-size: 150%;
+        font-size: 2.5vh;
       }
     }
     .readmore {
