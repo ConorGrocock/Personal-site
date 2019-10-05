@@ -1,14 +1,18 @@
-import React, { Component } from 'react'
-import '../styles/css/App.css'
+import React, { Component } from "react";
+import "../styles/css/App.css";
 
-import Banner from './Banner/Banner';
+import Banner from "./Banner/Banner";
+import Work from "./Work/Work";
 
 class App extends Component {
-  render () {
+  render() {
     return (
-      <Banner></Banner>
-    )
+      <div>
+        <Banner />
+        <Work />
+      </div>
+    );
   }
 }
 
-export default App
+export default App;
