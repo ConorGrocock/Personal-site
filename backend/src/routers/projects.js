@@ -9,7 +9,6 @@ const pool = new Pool({
   password: "postgres",
   port: 5432,
 });
-
 router.get("/all", function(request, response) {
   pool.query("SELECT * FROM projects", (err, res) => {
     if (err) {

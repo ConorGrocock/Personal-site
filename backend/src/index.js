@@ -1,5 +1,3 @@
-"use strict";
-
 const express = require("express");
 const cors = require("cors");
 
@@ -13,6 +11,12 @@ app.options("*", cors());
 
 var projectRouter = require("./routers/projects");
 app.use("/projects", projectRouter);
+
+app.get("/", (req, res) => {
+  res.json({
+    server: "Developement",
+  });
+});
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
