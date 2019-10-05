@@ -45,7 +45,11 @@ class WorkList extends Component {
       return (
         <div id="work-list">
           {items.map(item => (
-            <Project />
+            <Project
+              name={item.name}
+              image={item.image_path}
+              description={item.brief_description}
+            />
           ))}
         </div>
       );
