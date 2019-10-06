@@ -10,7 +10,7 @@ class SocialLink extends Component {
   return (
     <li>
     <a href={ this.props.link }>
-      <span class="fa-stack" style={{"vertical-align": "center"}}>
+      <span class="fa-stack" style={{"verticalAlign": "center"}}>
         {icon}
       </span>
     </a>

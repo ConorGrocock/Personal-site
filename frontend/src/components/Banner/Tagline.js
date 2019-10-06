@@ -10,7 +10,7 @@ const Text = styled.div`
 class TagLine extends Component {
     render() {
         return (
-            <h2 class="tagline">
+            <h2 className="tagline">
                 <TextLoop springConfig={{ stiffness: 180, damping: 8, noWrap: false }}>
                     <Text>Software Engineer</Text>
                     <Text>System Engineer</Text>

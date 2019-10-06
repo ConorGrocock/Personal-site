@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 
-import Project from "./Project";
 import axios from "axios";
+
+import Project from "./Project";
+import LoadingIcon from "../Utility/LoadingIcon";
 
 class WorkList extends Component {
   constructor(props) {
@@ -9,46 +11,42 @@ class WorkList extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      items: [],
+      projects: [],
     };
   }
 
   componentDidMount() {
+    var state = {};
     axios
       .get(`http://api.blog.test/projects/all`)
       .then(res => {
-        const projects = res.data;
-        console.log(projects);
+        console.log(res.data);
         this.setState({
-          items: projects,
+          isLoaded: true,
+          projects: res.data,
         });
       })
       .catch(function(error) {
         this.setState({
           error: error,
         });
-      })
-      .finally(() => {
-        this.setState({
-          isLoaded: true,
-        });
       });
   }
 
   render() {
-    const { error, isLoaded, items } = this.state;
+    const { error, isLoaded, projects } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <LoadingIcon>Loading projects</LoadingIcon>;
     } else {
       return (
         <div id="work-list">
-          {items.map(item => (
+          {projects.map(project => (
             <Project
-              name={item.name}
-              image={item.image_path}
-              description={item.brief_description}
+              name={project.name}
+              image={project.image_path}
+              description={project.brief_description}
             />
           ))}
         </div>

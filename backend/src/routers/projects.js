@@ -5,7 +5,7 @@ var router = express.Router();
 const pool = new Pool({
   user: "postgres",
   host: "db",
-  database: "personal_site",
+  database: "postgres",
   password: "postgres",
   port: 5432,
 });

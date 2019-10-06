@@ -9,6 +9,11 @@ const app = express();
 app.use(cors());
 app.options("*", cors());
 
+app.use((req, res, next) => {
+  console.log("[" + new Date() + "] " + req.url);
+  next();
+});
+
 var projectRouter = require("./routers/projects");
 app.use("/projects", projectRouter);
 
