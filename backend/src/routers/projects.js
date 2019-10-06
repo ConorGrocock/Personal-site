@@ -1,24 +1,13 @@
-const Pool = require("pg").Pool;
+var api = require("../utility/api");
+
 var express = require("express");
 var router = express.Router();
 
-const pool = new Pool({
-  user: "postgres",
-  host: "db",
-  database: "postgres",
-  password: "postgres",
-  port: 5432,
-});
 router.get("/all", function(request, response) {
-  pool.query("SELECT * FROM projects", (err, res) => {
-    if (err) {
-      console.log(err);
-      response.json(err);
-    } else {
-      console.log(res.rows);
-      response.json(res.rows);
-    }
-  });
+  api.projects.all(
+    error => response.json(error),
+    result => response.json(result)
+  );
 });
 
 module.exports = router;
