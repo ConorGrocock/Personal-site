@@ -13,7 +13,7 @@
     flex-wrap: wrap;
     justify-content: space-around; }
     .work #work-list .project {
-      width: 25%;
+      width: 20%;
       position: relative;
       background: #ffffff;
       box-shadow: 0px 5px 20px -8px #a1a1a1;
@@ -21,7 +21,10 @@
       margin: 2%;
       padding: 0px;
       padding-bottom: 60px; }
-      @media screen and (max-width: 900px) {
+      @media screen and (max-width: 1000px) {
+        .work #work-list .project {
+          width: 25%; } }
+      @media screen and (max-width: 700px) {
         .work #work-list .project {
           width: 30%; } }
       @media screen and (max-width: 600px) {
@@ -32,7 +35,13 @@
         text-align: center; }
         .work #work-list .project .content .project-image {
           width: 100%;
-          margin-bottom: 20px; }
+          margin-bottom: 20px;
+          transition: width 0.5s;
+          transition: height 0.5s; }
+          @media screen and (max-width: 600px) {
+            .work #work-list .project .content .project-image {
+              height: 200px;
+              width: auto; } }
         .work #work-list .project .content .project-name {
           margin-bottom: 15px; }
       .work #work-list .project .social-bar {
