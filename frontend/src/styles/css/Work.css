@@ -3,7 +3,7 @@
   margin: 0;
   min-height: 100vh;
   width: 100vw;
-  background: #ababab99;
+  background: #e9e9e9;
   position: relative; }
   .work #work-list {
     width: 100vw;
@@ -17,8 +17,10 @@
       margin: 5%;
       padding: 1%;
       text-align: center;
-      border: 1px solid black;
-      background: #DDDDDD; }
+      border: 2px solid #fff;
+      box-shadow: 0px 5px 20px -8px #a1a1a1;
+      background: #FFFFFF;
+      border-radius: 4px; }
       @media screen and (max-width: 900px) {
         .work #work-list .project {
           width: 30%; } }
