@@ -1,22 +1,32 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 class SocialLink extends Component {
   render() {
     var icon;
     if (this.props.fab)
-      icon = <i class={"fab fa-" + this.props.fab + " fa-stack-1x fa-inverse"}></i>
+      icon = (
+        <i
+          className={
+            "fab fa-" + this.props.fab + " fa-stack-1x fa-inverse"
+          }></i>
+      );
     if (this.props.fas)
-      icon = <i class={"fas fa-" + this.props.fas + " fa-stack-1x fa-inverse"}></i>
-  return (
-    <li>
-    <a href={ this.props.link }>
-      <span class="fa-stack" style={{"verticalAlign": "center"}}>
-        {icon}
-      </span>
-    </a>
-    </li>
-  )
+      icon = (
+        <i
+          className={
+            "fas fa-" + this.props.fas + " fa-stack-1x fa-inverse"
+          }></i>
+      );
+    return (
+      <li>
+        <a href={this.props.link} title={this.props.title}>
+          <span className="fa-stack" style={{ verticalAlign: "center" }}>
+            {icon}
+          </span>
+        </a>
+      </li>
+    );
   }
 }
 
-export default SocialLink
+export default SocialLink;

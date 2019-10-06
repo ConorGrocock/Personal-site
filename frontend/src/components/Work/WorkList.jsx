@@ -20,7 +20,6 @@ class WorkList extends Component {
     axios
       .get(`http://api.blog.test/projects/all`)
       .then(res => {
-        console.log(res.data);
         this.setState({
           isLoaded: true,
           projects: res.data,
@@ -42,11 +41,12 @@ class WorkList extends Component {
     } else {
       return (
         <div id="work-list">
-          {projects.map(project => (
+          {projects.map((project, _i) => (
             <Project
               name={project.name}
               image={project.image_path}
               description={project.brief_description}
+              social={project.social_links}
             />
           ))}
         </div>
