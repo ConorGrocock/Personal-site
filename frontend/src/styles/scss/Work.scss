@@ -76,6 +76,7 @@
                 border-bottom-left-radius: 4px;
 
                 background-color: darken(#fff, 10%);
+                box-shadow: inset 0px 5px 5px -5px gray;
 
                 display: flex;
 
@@ -88,10 +89,24 @@
 
                     transition: background 0.2s;
                     transition: color 0.2s;
+                    transition: box-shadow 0.4s;
+
+                    &:first-child {
+                        &:hover {
+                            box-shadow: inset -5px 5px 5px -5px gray;
+                        }
+                    }
+
+                    &:last-child {
+                        &:hover {
+                            box-shadow: inset 5px 5px 5px -5px gray;
+                        }
+                    }
 
                     &:hover {
                         color: gray;
                         background: darken(#fff, 5%);
+                        box-shadow: inset 5px 5px 5px -5px gray, inset -5px 5px 5px -5px gray;
                     }
                 }
             }
