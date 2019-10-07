@@ -14,14 +14,8 @@ app.use((req, res, next) => {
   next();
 });
 
-var projectRouter = require("./routers/projects");
-app.use("/projects", projectRouter);
-
-app.get("/", (req, res) => {
-  res.json({
-    server: "Developement",
-  });
-});
+app.use("/", require("./routers/core"));
+app.use("/projects", require("./routers/projects"));
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
