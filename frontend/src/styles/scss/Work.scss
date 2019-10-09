@@ -47,6 +47,7 @@
 
                 .project-image {
                     width: 100%;
+                    max-height: 318px;
 
                     @media screen and (max-width: 600px) {
                         height: 200px;
@@ -91,22 +92,23 @@
                     transition: color 0.2s;
                     transition: box-shadow 0.4s;
 
-                    &:first-child {
-                        &:hover {
-                            box-shadow: inset -5px 5px 5px -5px gray;
-                        }
-                    }
-
-                    &:last-child {
-                        &:hover {
-                            box-shadow: inset 5px 5px 5px -5px gray;
-                        }
-                    }
-
                     &:hover {
                         color: gray;
                         background: darken(#fff, 5%);
                         box-shadow: inset 5px 5px 5px -5px gray, inset -5px 5px 5px -5px gray;
+                    }
+
+                    &:first-child:hover {
+                        box-shadow: inset -5px 5px 5px -5px gray;
+                    }
+
+                    &:last-child:hover {
+                        box-shadow: inset 5px 5px 5px -5px gray;
+                    }
+
+                    &:only-child:hover {
+                        box-shadow: inherit;
+                        //box-shadow: inset 0px 5px 5px -5px gray;
                     }
                 }
             }
