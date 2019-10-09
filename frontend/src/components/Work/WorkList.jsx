@@ -17,7 +17,7 @@ class WorkList extends Component {
 
   componentDidMount() {
     axios
-      .get(process.env.REACT_APP_API_URL)
+      .get(process.env.REACT_APP_API_URL + "/projects/all")
       .then(res => {
         this.setState({
           isLoaded: true,

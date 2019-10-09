@@ -6,7 +6,6 @@ export class Project extends Component {
     var image = this.props.image;
     var description = this.props.description;
     var social = this.props.social;
-    console.log(social["web"]);
     return (
       <div className="project">
         <div className="content">
