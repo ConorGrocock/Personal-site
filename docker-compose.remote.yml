@@ -8,11 +8,12 @@ services:
       - ./backend/:/usr/app
       - /usr/app/node_modules
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - PORT=8080
+      - API_URL=api.grocock.email
     labels:
-      - "traefik.frontend.rule=Host:api.blog.test"
-      - "traefik.port=8080"
+      - "traefik.frontend.rule=Host:api.grocock.email"
+      - "traefik.port=5000"
     depends_on:
       - db
     networks: 
@@ -46,6 +47,6 @@ volumes:
   data:
 networks: 
   backend:
+    internal: true
   proxy:
     external: true
-    
