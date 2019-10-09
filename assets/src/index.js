@@ -14,8 +14,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/", require("./routers/core"));
-app.use("/projects", require("./routers/projects"));
+app.use(express.static("public"));
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
