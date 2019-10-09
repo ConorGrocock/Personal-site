@@ -16,16 +16,15 @@ class WorkList extends Component {
   }
 
   componentDidMount() {
-    var state = {};
     axios
-      .get(`http://api.blog.test/projects/all`)
+      .get(process.env.REACT_APP_API_URL)
       .then(res => {
         this.setState({
           isLoaded: true,
           projects: res.data,
         });
       })
-      .catch(function(error) {
+      .catch(error => {
         this.setState({
           error: error,
         });

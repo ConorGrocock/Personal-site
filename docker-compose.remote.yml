@@ -1,5 +1,23 @@
 version: '2'
 services:
+  assets:
+    build:
+      context: ./assets/
+    command: /usr/app/node_modules/.bin/nodemon src/index.js
+    volumes:
+      - ./assets/:/usr/app
+      - /usr/app/node_modules
+    environment:
+      - NODE_ENV=production
+      - DEBUG=express:*
+      - CHOKIDAR_USEPOLLING=true
+      - PORT=8080
+    labels:
+      - "traefik.frontend.rule=Host:assets.grocock.email"
+      - "traefik.port=8080"
+      - "traefik.docker.network=front"
+    networks:
+      - front
   backend:
     build:
       context: ./backend/
