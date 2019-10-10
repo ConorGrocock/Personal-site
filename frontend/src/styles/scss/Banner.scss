@@ -1,113 +1,112 @@
 #banner {
-  height: 100vh;
-  width: 100vw;
-  background: #ababab99;
-  position: relative;
+	height: 100vh;
+	width: 100vw;
+	background: #ababab99;
+	position: relative;
 
-  .background {
-    width: 100%;
-    height: 100%;
-    background-image: url("https://assets.grocock.email/banner-background.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-  }
+	.background {
+		width: 100%;
+		height: 100%;
+		background-image: url("https://assets.grocock.email/banner-background.webp"),
+			url("https://assets.grocock.email/banner-background.jpg");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+	}
 
-  .content {
-    color: white;
+	.content {
+		color: white;
 
-    .social {
-      position: absolute;
-      top: 50vh;
-      //transform: translate(, 0%);
-      text-align: center;
+		.social {
+			position: absolute;
+			top: 50vh;
+			//transform: translate(, 0%);
+			text-align: center;
 
-      ul {
-        list-style: none;
+			ul {
+				list-style: none;
 
-        li {
-          text-decoration: none;
-          width: 50px;
-          height: 50px;
-          font-size: 125%;
-        }
-      }
-    }
+				li {
+					text-decoration: none;
+					width: 50px;
+					height: 50px;
+					font-size: 125%;
+				}
+			}
+		}
 
-    .info {
-      position: absolute;
-      top: 20vh;
-      left: 50%;
-      transform: translate(-50%, 0%);
+		.info {
+			position: absolute;
+			top: 20vh;
+			left: 50%;
+			transform: translate(-50%, 0%);
 
-      width: 90vw;
+			width: 90vw;
 
-      font-family: "Source Sans Pro";
-      text-align: center;
-      letter-spacing: 5px;
-      text-transform: uppercase;
+			font-family: "Source Sans Pro";
+			text-align: center;
+			letter-spacing: 5px;
+			text-transform: uppercase;
 
-      .name {
-        font-weight: 400;
-        font-size: 5vh;
-        padding-bottom: 20px;
+			.name {
+				font-weight: 400;
+				font-size: 5vh;
+				padding-bottom: 20px;
+			}
 
-      }
+			.tagline {
+				font-weight: 500;
+				font-size: 2.5vh;
+			}
+		}
 
-      .tagline {
-        font-weight: 500;
-        font-size: 2.5vh;
-      }
-    }
+		.readmore {
+			position: absolute;
+			bottom: 5vh;
+			left: 50%;
+			transform: translate(-50%, 0%);
+			font-size: 120%;
+			text-align: center;
+			text-transform: capitalize;
 
-    .readmore {
-      position: absolute;
-      bottom: 5vh;
-      left: 50%;
-      transform: translate(-50%, 0%);
-      font-size: 120%;
-      text-align: center;
-      text-transform: capitalize;
+			font-family: "Roboto", sans-serif;
 
-      font-family: 'Roboto', sans-serif;
+			.arrow {
+				font-weight: 400;
+				font-size: 150%;
+				color: white;
 
-      .arrow {
-        font-weight: 400;
-        font-size: 150%;
-        color: white;
-
-        animation-name: bounce;
-        transform-origin: center bottom;
-        animation-duration: 2s;
-        animation-iteration-count: infinite;
-      }
-    }
-  }
+				animation-name: bounce;
+				transform-origin: center bottom;
+				animation-duration: 2s;
+				animation-iteration-count: infinite;
+			}
+		}
+	}
 }
 
 @keyframes bounce {
+	from,
+	20%,
+	53%,
+	80%,
+	to {
+		animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+		transform: translate3d(0, 0, 0);
+	}
 
-  from,
-  20%,
-  53%,
-  80%,
-  to {
-    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    transform: translate3d(0, 0, 0);
-  }
+	40%,
+	43% {
+		animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+		transform: translate3d(0, -5px, 0);
+	}
 
-  40%,
-  43% {
-    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-    transform: translate3d(0, -5px, 0);
-  }
+	70% {
+		animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+		transform: translate3d(0, -3px, 0);
+	}
 
-  70% {
-    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-    transform: translate3d(0, -3px, 0);
-  }
-
-  90% {
-    transform: translate3d(0, -1px, 0);
-  }
+	90% {
+		transform: translate3d(0, -1px, 0);
+	}
 }
