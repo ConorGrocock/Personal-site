@@ -10,16 +10,19 @@ class SocialList extends Component {
             fab="github"
             link="https://github.com/ConorGrocock"
             showBackground={false}
+            title="Github Profile"
           />
           <SocialLink
             fab="twitter"
             link="https://twitter.com/ConorGrocock"
             showBackground={false}
+            title="Twitter Profile"
           />
           <SocialLink
             fas="newspaper"
             link="https://blog.grocock.email"
             showBackground={false}
+            title="Blog"
           />
         </ul>
       </div>
