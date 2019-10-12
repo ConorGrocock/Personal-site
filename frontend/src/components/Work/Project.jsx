@@ -10,7 +10,7 @@ export class Project extends Component {
       <div className="project">
         <div className="content">
           <img
-            src={image}
+            srcSet={image}
             className="project-image"
             alt="Banner showing the project"></img>
           <h1 className="project-name">{name}</h1>
