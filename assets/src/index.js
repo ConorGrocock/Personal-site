@@ -1,8 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-
+const path = require("path");
 const fs = require("fs");
-var im = require("imagemagick");
 
 const PORT = process.env.PORT || 8080;
 const HOST = "0.0.0.0";
@@ -17,7 +16,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static("public"));
+//app.use(express.static("public"));
+
+app.get("/:image/", (req, res) => {
+  //res.send("Test");
+  res.header("Cache-Control", "max-age=86400, public");
+  res.sendFile("public/" + req.params.image, { root: "." });
+});
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
