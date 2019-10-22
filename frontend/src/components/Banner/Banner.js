@@ -16,11 +16,11 @@ class Banner extends Component {
             />
             <source
               srcSet="https://assets.grocock.email/banner-background-l.webp"
-              media="(min-width: 800px)"
+              media="(min-width: 400px)"
             />
             <source
               srcSet="https://assets.grocock.email/banner-background-m.webp"
-              media="(min-width: 30000px)"
+              media="(min-width: 300px)"
             />
             <source
               srcSet="https://assets.grocock.email/banner-background-s.webp"
@@ -36,7 +36,7 @@ class Banner extends Component {
             />
             <source
               srcSet="https://assets.grocock.email/banner-background-l.jpg"
-              media="(min-width: 800px)"
+              media="(min-width: 400px)"
             />
             <source
               srcSet="https://assets.grocock.email/banner-background-m.jpg"
