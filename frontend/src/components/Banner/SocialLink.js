@@ -22,7 +22,8 @@ class SocialLink extends Component {
         <a
           href={this.props.link}
           title={this.props.title}
-          aria-label={this.props.title}>
+          aria-label={this.props.title}
+          target="_blank">
           <span className="fa-stack" style={{ verticalAlign: "center" }}>
             {icon}
           </span>

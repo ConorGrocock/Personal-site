@@ -20,7 +20,8 @@ export class Project extends Component {
           {Object.keys(social).map(social_link => (
             <a
               href={social[social_link].link}
-              title={social[social_link].title}>
+              title={social[social_link].title}
+              target="_blank">
               <i className={social[social_link].icon} />
             </a>
           ))}
