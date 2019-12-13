@@ -1,6 +1,6 @@
 # Personal Site
 
-This repo contains all the code used to run my personal site [grocock.email](grocock.email).
+This repo contains all the code used to run my personal site [grocock.email](https://grocock.email).
 
 ## Description of the project
 The project is broken down into 3 servers
@@ -31,4 +31,4 @@ From the root directory running the following command should be enough to get it
     docker-compose up -d
 
 # Preview
-The code in this repositiory is the same code [that is running my website](grocock.email) 
+The code in this repositiory is the same code [that is running my website](https://grocock.email) 
