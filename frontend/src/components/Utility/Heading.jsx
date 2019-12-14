@@ -6,7 +6,7 @@ export class Heading extends Component {
   render() {
     return (
       <div className="section-heading">
-        <h1>{this.props.children}</h1>
+        <h2>{this.props.children}</h2>
       </div>
     );
   }
