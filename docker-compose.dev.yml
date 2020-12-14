@@ -3,68 +3,59 @@ services:
   assets:
     build:
       context: ./assets/
+    restart: always
     command: /usr/app/node_modules/.bin/nodemon src/index.js
     volumes:
       - ./assets/:/usr/app
       - /usr/app/node_modules
     environment:
       - NODE_ENV=production
-      - DEBUG=express:*
       - CHOKIDAR_USEPOLLING=true
-      - PORT=8080
-    labels:
-      - "traefik.frontend.rule=Host:assets.grocock.email"
-      - "traefik.port=8080"
-      - "traefik.docker.network=front"
-    networks:
-      - front
+      - PORT=8002
+    ports:
+      - "10002:8002"
   backend:
     build:
       context: ./backend/
+    restart: always
     command: /usr/app/node_modules/.bin/nodemon src/index.js
     volumes:
       - ./backend/:/usr/app
       - /usr/app/node_modules
     environment:
       - NODE_ENV=production
-      - PORT=8080
-      - API_URL=api.grocock.email
-    labels:
-      - "traefik.frontend.rule=Host:api.grocock.email"
-      - "traefik.port=5000"
+      - CHOKIDAR_USEPOLLING=true
+      - PORT=8001
+      - API_URL=api.dev.grocock.email
+    ports:
+      - "10001:8001"
     depends_on:
       - db
-    networks: 
-      - backend
-      - proxy
   frontend:
+    container_name: frontend
+    restart: always
     build:
       context: ./frontend/
-      dockerfile: Dockerfile.prod
-    command: npm start
+    command: npm run prod
     volumes:
       - ./frontend/:/usr/app
       - /usr/app/node_modules
-    labels:
-      - "traefik.frontend.rule=Host:grocock.email"
-      - "traefik.port=3000"
     depends_on:
       - backend
       - db
-    networks:
-      - proxy
+    ports:
+      - "10000:5000"
   db:
     image: "postgres:11"
+    container_name: "db"
+    restart: always
     ports:
-      - "5432:5432"
+      - "10003:5432"
+    environment:
+      - POSSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=postgres
     volumes:
-      - "data:/var/lib/postgresql/data"
-    networks:
-        - backend
+      - ./data/postgres:/var/lib/postgresql/data
 volumes:
   data:
-networks: 
-  backend:
-    internal: true
-  proxy:
-    external: true
