@@ -58,7 +58,7 @@ jobs:
             cd /root/website
             git pull
             ./restart.sh prod
-
+            
       - name: Check http status code of Development site
         uses: lakuapik/gh-actions-http-status@v1
         with:
