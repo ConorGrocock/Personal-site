@@ -36,7 +36,7 @@ class WorkList extends Component {
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-      return <LoadingIcon>Loading projects</LoadingIcon>;
+      return <LoadingIcon>Loading the projects</LoadingIcon>;
     } else {
       return (
         <div id="work-list">
