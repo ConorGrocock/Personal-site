@@ -5,13 +5,13 @@
   "homepage" : "https://grocock.email",
   "dependencies": {
     "ajv-keywords": "^3.4.1",
-    "axios": "^0.19.0",
+    "axios": "^0.21.0",
     "node-sass": "^4.12.0",
     "npm-run-all": "^4.1.5",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-scripts": "3.2.0",
-    "react-text-loop": "^2.1.1",
+    "react-text-loop": "^2.3.0",
     "request": "^2.88.0",
     "serve": "^11.2.0",
     "styled-components": "^5.2.1"
