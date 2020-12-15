@@ -40,7 +40,6 @@ services:
       - back
       - front
   frontend:
-    container_name: frontend
     build:
       context: ./frontend/
     command: npm start
@@ -59,7 +58,6 @@ services:
       - front
   db:
     image: "postgres:11"
-    container_name: "db"
     ports:
       - "54320:5432"
     volumes:
