@@ -1,7 +1,24 @@
 version: '2'
 services:
+  assets:
+    build:
+      context: ./assets/
+    command: node src/index.js
+    volumes:
+      - ./assets/:/usr/app
+      - /usr/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - DEBUG=express:*
+      - CHOKIDAR_USEPOLLING=true
+      - PORT=8080
+    labels:
+      - "traefik.frontend.rule=Host:assets.blog.test"
+      - "traefik.port=8080"
+      - "traefik.docker.network=front"
+    networks:
+      - front
   backend:
-    container_name: backend
     build:
       context: ./backend/
     command: /usr/app/node_modules/.bin/nodemon src/index.js
@@ -10,11 +27,13 @@ services:
       - /usr/app/node_modules
     environment:
       - NODE_ENV=development
+      - DEBUG=express:*
       - CHOKIDAR_USEPOLLING=true
       - PORT=8080
     labels:
       - "traefik.frontend.rule=Host:api.blog.test"
       - "traefik.port=8080"
+      - "traefik.docker.network=front"
     depends_on:
       - db
     networks: 
@@ -31,6 +50,8 @@ services:
     labels:
       - "traefik.frontend.rule=Host:blog.test"
       - "traefik.port=3000"
+    ports:
+      - 3000:3000
     depends_on:
       - backend
       - db
@@ -50,11 +71,14 @@ services:
         - front
   traefik:
     image: traefik:latest
-    command: --api --web --docker --docker.domain=blog.test
+    command: --api --web --docker --docker.domain=blog.test  --logLevel=DEBUG
     ports:
       - 80:80
       - 8080:8080
       - 443:443
+    environment:
+      - TRAEFIK_ACCESSLOG=TRUE
+      - TRAEFIK_LOG=TRUE
     networks:
       - front
     volumes:
@@ -68,6 +92,7 @@ services:
     restart: always
 volumes:
   data:
+    
 networks: 
   back:
   front:
