@@ -32,7 +32,7 @@ jobs:
           key: ${{ secrets.SSH_Key }}
           # execute commands on ssh
           script: |
-            cd $HOME/website
+            cd /root/website
             git pull
             ./restart.sh dev
         
