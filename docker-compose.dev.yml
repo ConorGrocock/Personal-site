@@ -32,7 +32,6 @@ services:
     depends_on:
       - db
   frontend:
-    container_name: frontend
     restart: always
     build:
       context: ./frontend/
@@ -47,7 +46,6 @@ services:
       - "10000:5000"
   db:
     image: "postgres:11"
-    container_name: "db"
     restart: always
     ports:
       - "10003:5432"

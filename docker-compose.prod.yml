@@ -32,8 +32,6 @@ services:
     depends_on:
       - db
   frontend:
-    container_name: frontend
-    restart: always
     build:
       context: ./frontend/
     command: npm run prod
@@ -47,8 +45,6 @@ services:
       - "8000:5000"
   db:
     image: "postgres:11"
-    container_name: "db"
-    restart: always
     ports:
       - "54320:5432"
     environment:
