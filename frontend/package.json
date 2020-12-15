@@ -13,8 +13,8 @@
     "react-scripts": "3.2.0",
     "react-text-loop": "^2.3.0",
     "request": "^2.88.0",
-    "serve": "^11.3.2",
-    "styled-components": "^4.4.0"
+    "serve": "^11.2.0",
+    "styled-components": "^5.2.1"
   },
   "scripts": {
     "start": "npm-run-all -p watch-css start-js",
