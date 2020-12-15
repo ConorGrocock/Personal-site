@@ -80,9 +80,9 @@ jobs:
         run: ssh server 'cd /root/website/website_prod; git checkout master; git pull'
         
       - name: Shutdown Prod
-        run: ssh server 'cd /root/website/website_prod; docker-compose -f "./docker-compose.dev.yml" down'
+        run: ssh server 'cd /root/website/website_prod; docker-compose -f "./docker-compose.prod.yml" down'
       - name: Build Prod changes
-        run: ssh server 'cd /root/website/website_prod; docker-compose -f "./docker-compose.dev.yml" up -d'
+        run: ssh server 'cd /root/website/website_prod; docker-compose -f "./docker-compose.prod.yml" up -d'
       
       - name: Sleep for 1 minute
         uses: jakejarvis/wait-action@master
