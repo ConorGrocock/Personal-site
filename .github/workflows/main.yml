@@ -34,17 +34,35 @@ jobs:
         run: ssh server 'cd /root/website/website_dev; git checkout master; git pull'
       - name: Build Dev changes
         run: ssh server 'cd /root/website/website_dev; docker-compose -f "./docker-compose.dev.yml" up -d'
+      
+      - name: Sleep for 1 minute
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '60s'
+      
       - name: Check http status code of Development site
         uses: lakuapik/gh-actions-http-status@v1
         with:
           sites: '["https://dev.grocock.email"]'
           expected: '[200]'
 
+ 
+      - name: Sleep for 10 minutes
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '600s'
+      
 
       - name: Clone Prod changes
         run: ssh server 'cd /root/website/website_dev; git checkout master; git pull'
       - name: Build Prod changes
         run: ssh server 'cd /root/website/website_dev; docker-compose -f "./docker-compose.dev.yml" up -d'
+      
+      - name: Sleep for 1 minute
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '60s'
+      
       - name: Check http status code of Production site
         uses: lakuapik/gh-actions-http-status@v1
         with:
