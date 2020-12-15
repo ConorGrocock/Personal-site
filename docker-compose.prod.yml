@@ -3,97 +3,59 @@ services:
   assets:
     build:
       context: ./assets/
-    command: node src/index.js
+    restart: always
+    command: /usr/app/node_modules/.bin/nodemon src/index.js
     volumes:
       - ./assets/:/usr/app
       - /usr/app/node_modules
     environment:
-      - NODE_ENV=development
-      - DEBUG=express:*
+      - NODE_ENV=production
       - CHOKIDAR_USEPOLLING=true
-      - PORT=8080
-    labels:
-      - "traefik.frontend.rule=Host:assets.blog.test"
-      - "traefik.port=8080"
-      - "traefik.docker.network=front"
-    networks:
-      - front
+      - PORT=8002
+    ports:
+      - "8002:8002"
   backend:
     build:
       context: ./backend/
+    restart: always
     command: /usr/app/node_modules/.bin/nodemon src/index.js
     volumes:
       - ./backend/:/usr/app
       - /usr/app/node_modules
     environment:
-      - NODE_ENV=development
-      - DEBUG=express:*
+      - NODE_ENV=production
       - CHOKIDAR_USEPOLLING=true
-      - PORT=8080
-    labels:
-      - "traefik.frontend.rule=Host:api.blog.test"
-      - "traefik.port=8080"
-      - "traefik.docker.network=front"
+      - PORT=8001
+      - API_URL=api.grocock.email
+    ports:
+      - "8001:8001"
     depends_on:
       - db
-    networks: 
-      - back
-      - front
   frontend:
     container_name: frontend
+    restart: always
     build:
       context: ./frontend/
-    command: npm start
+    command: npm run prod
     volumes:
       - ./frontend/:/usr/app
       - /usr/app/node_modules
-    labels:
-      - "traefik.frontend.rule=Host:blog.test"
-      - "traefik.port=3000"
-    ports:
-      - 3000:3000
     depends_on:
       - backend
       - db
-    networks:
-      - front
+    ports:
+      - "8000:5000"
   db:
     image: "postgres:11"
     container_name: "db"
+    restart: always
     ports:
       - "54320:5432"
-    volumes:
-      - "data:/var/lib/postgresql/data"
-    labels:
-      - "traefik.frontend.rule=Host:db.blog.test"
-      - "traefik.port=5432"
-    networks:
-        - front
-  traefik:
-    image: traefik:latest
-    command: --api --web --docker --docker.domain=blog.test  --logLevel=DEBUG
-    ports:
-      - 80:80
-      - 8080:8080
-      - 443:443
     environment:
-      - TRAEFIK_ACCESSLOG=TRUE
-      - TRAEFIK_LOG=TRUE
-    networks:
-      - front
+      - POSSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=postgres
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./traefik.toml:/traefik.toml
-      - ./acme.json:/acme.json
-    labels:
-      - "traefik.frontend.rule=Host:traefik.blog.test"
-      - "traefik.port=8080"
-    container_name: traefik
-    restart: always
+      - ./data/postgres:/var/lib/postgresql/data
 volumes:
   data:
-    
-networks: 
-  back:
-  front:
-    
