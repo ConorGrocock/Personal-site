@@ -13,15 +13,6 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
   build-dev:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -40,15 +31,20 @@ jobs:
             StrictHostKeyChecking no
           END
         env:
-          SSH_USER: root
-          SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
           SSH_HOST: grocock.email
         
-      - name: Clone changes
-        run: ssh staging 'cd /root/website/website_dev; git checkout ${ GITHUB_HEAD_REF }'
-      - name: Build changes
-        run: ssh staging 'cd /root/website/website_dev; docker-compose -f "./docker-compose.dev.yml" up'
-            
+      - name: Clone Dev changes
+        run: ssh staging 'cd /root/website/website_dev; git checkout ${ GITHUB_HEAD_REF }; git pull'
+      - name: Build Dev changes
+        run: ssh server 'cd /root/website/website_dev; docker-compose -f "./docker-compose.dev.yml" up -d'
+      
+      - name: Sleep for 1 minute
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '60s'
+      
       - name: Check http status code of Development site
         uses: lakuapik/gh-actions-http-status@v1
         with:
