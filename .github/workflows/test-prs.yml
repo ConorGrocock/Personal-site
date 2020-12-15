@@ -5,7 +5,7 @@ name: Test PR
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-  push:
+  pull_request:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -26,19 +26,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Build Dev
-        # You may pin to the exact commit or the version.
-        # uses: cross-the-world/ssh-pipeline@7f022867934a210af826af99ef80d96f03a094d5
-        uses: cross-the-world/ssh-pipeline@v1.2.0
-        with:
-          host: "grocock.email"
-          user: ${{ secrets.SSH_User }}
-          key: ${{ secrets.SSH_Key }}
-          # execute commands on ssh
-          script: |
-            cd /root/website
-            git pull
-            ./restart.sh dev
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host server
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: root
+          SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
+          SSH_HOST: grocock.email
+        
+      - name: Clone changes
+        run: ssh staging 'cd /root/website/website_dev; git checkout ${ GITHUB_HEAD_REF }'
+      - name: Build changes
+        run: ssh staging 'cd /root/website/website_dev; docker-compose -f "./docker-compose.dev.yml" up'
             
       - name: Check http status code of Development site
         uses: lakuapik/gh-actions-http-status@v1
