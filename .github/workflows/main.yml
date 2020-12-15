@@ -45,14 +45,14 @@ jobs:
         with:
           sites: '["https://dev.grocock.email"]'
           expected: '[200]'
-
- 
-      - name: Sleep for 10 minutes
-        uses: jakejarvis/wait-action@master
-        with:
-          time: '600s'
       
-
+  build-prod:
+    needs: [build-dev]
+    if: github.actor == github.event.repository.owner.login
+    
+    
+    runs-on: ubuntu-latest
+    steps:
       - name: Clone Prod changes
         run: ssh server 'cd /root/website/website_dev; git checkout master; git pull'
       - name: Build Prod changes
