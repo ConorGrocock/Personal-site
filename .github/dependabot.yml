@@ -1,0 +1,12 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/assets"
+    directory: "/backend"
+    directory: "/frontend"
+    schedule:
+      interval: "daily"
+    rebase-strategy: "auto"
+    labels:
+      - "security"
+      - "dependencies"
