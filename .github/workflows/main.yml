@@ -2,6 +2,7 @@ name: CI
 env:
   prodURL: "https://grocock.email"
   devURL: "https://dev.grocock.email"
+  sshURL: "grocock.email"
 
 on:
   push:
@@ -31,7 +32,7 @@ jobs:
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
-          SSH_HOST: ${{ env.devURL }}
+          SSH_HOST: ${{ env.sshURL }}
         
       - name: Clone Dev changes
         run: ssh server 'cd /root/website/website_dev; git checkout master; git pull'
@@ -135,7 +136,7 @@ jobs:
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
-          SSH_HOST: ${{ env.prodURL }}
+          SSH_HOST: ${{ env.sshURL }}
           
       - name: Clone Prod changes
         run: ssh server 'cd /root/website/website_prod; git checkout master; git pull'
