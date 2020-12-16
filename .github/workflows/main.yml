@@ -77,10 +77,14 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
     
-  hadolintAssets:
-    name: Assets - hadolint
+  hadolint:
+    name: Docker - Lint
     runs-on: ubuntu-latest
     needs: [analyze]
+    
+    strategy:
+      matrix:
+        project: [ 'assets', 'backend', 'frontend' ]
     
     steps:
     - uses: actions/checkout@master
@@ -88,72 +92,27 @@ jobs:
       uses: burdzwastaken/hadolint-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        HADOLINT_ACTION_DOCKERFILE_FOLDER: ./assets
-    
-  hadolintBackend:
-    name: Backend - hadolint
-    runs-on: ubuntu-latest
-    needs: [analyze]
-    
-    steps:
-    - uses: actions/checkout@master
-    - name: hadolint on pr
-      uses: burdzwastaken/hadolint-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        HADOLINT_ACTION_DOCKERFILE_FOLDER: ./backend
-    
-  hadolintFrontend:
-    name: Frontend - hadolint 
-    runs-on: ubuntu-latest
-    needs: [analyze]
-    
-    steps:
-    - uses: actions/checkout@master
-    - name: hadolint on pr
-      uses: burdzwastaken/hadolint-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        HADOLINT_ACTION_DOCKERFILE_FOLDER: ./frontend
+        HADOLINT_ACTION_DOCKERFILE_FOLDER: ./${{ matrix.project }}
  
-  eslintAssets:
-    name: Assets - eslint 
+  eslint:
+    name: NodeJS - eslint 
     runs-on: ubuntu-latest
-    needs: [hadolintAssets]
+    needs: [hadolint]
+    
+    strategy:
+      matrix:
+        project: [ 'assets', 'backend', 'frontend' ]
+    
     steps:
       - uses: actions/checkout@v1
       - name: eslint
         uses: reviewdog/action-eslint@v1
         with:
           reporter: github-pr-review # Change reporter.
-          eslint_flags: 'assets/src/'
-      
-  eslintBackend:
-    name: Backend - eslint 
-    runs-on: ubuntu-latest
-    needs: [hadolintBackend]
-    steps:
-      - uses: actions/checkout@v1
-      - name: eslint
-        uses: reviewdog/action-eslint@v1
-        with:
-          reporter: github-pr-review # Change reporter.
-          eslint_flags: 'backend/src/'
-      
-  eslintFrontend:
-    name: Frontend - eslint 
-    runs-on: ubuntu-latest
-    needs: [hadolintFrontend]
-    steps:
-      - uses: actions/checkout@v1
-      - name: eslint
-        uses: reviewdog/action-eslint@v1
-        with:
-          reporter: github-pr-review # Change reporter.
-          eslint_flags: 'frontend/src/'
+          eslint_flags: '${{ matrix.project }}/src/'
       
   build-prod:
-    needs: [test-dev, analyze, eslintAssets, eslintBackend, eslintFrontend]
+    needs: [test-dev, analyze, eslint]
     if: github.actor == github.event.repository.owner.login
         
     runs-on: ubuntu-latest
