@@ -1,4 +1,7 @@
 name: CI
+env:
+  prodURL: "https://grocock.email"
+  devURL: "https://dev.grocock.email"
 
 on:
   push:
@@ -28,7 +31,7 @@ jobs:
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
-          SSH_HOST: grocock.email
+          SSH_HOST: ${{ env.devURL }}
         
       - name: Clone Dev changes
         run: ssh server 'cd /root/website/website_dev; git checkout master; git pull'
@@ -50,7 +53,7 @@ jobs:
       - name: Check http status code of Development site
         uses: lakuapik/gh-actions-http-status@v1
         with:
-          sites: '["https://dev.grocock.email"]'
+          sites: '["${{ env.devURL }}"]'
           expected: '[200]'
       
   analyze:
@@ -132,7 +135,7 @@ jobs:
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
-          SSH_HOST: grocock.email
+          SSH_HOST: ${{ env.prodURL }}
           
       - name: Clone Prod changes
         run: ssh server 'cd /root/website/website_prod; git checkout master; git pull'
@@ -148,7 +151,8 @@ jobs:
           time: '60s'
       
       
-  test-prod:
+  http-test:
+    name: HTTP Tests
     needs: [build-prod]
     if: github.actor == github.event.repository.owner.login
         
@@ -173,7 +177,7 @@ jobs:
       - name: Check http status code of Production site
         uses: lakuapik/gh-actions-http-status@v1
         with:
-          sites: '["https://grocock.email"]'
+          sites: '["${{ env.prodURL }}"]'
           expected: '[200]'
   
   audit:
@@ -184,7 +188,7 @@ jobs:
       - name: Audit live URL
         uses: jakejarvis/lighthouse-action@master
         with:
-          url: 'https://jarv.is/'
+          url: ${{ env.prodURL }}
       - name: Upload results as an artifact
         uses: actions/upload-artifact@master
         with:
