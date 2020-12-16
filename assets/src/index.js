@@ -3,6 +3,8 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 
+const rateLimit = require("express-rate-limit");
+
 const PORT = process.env.PORT || 8080;
 const HOST = "0.0.0.0";
 
@@ -17,6 +19,16 @@ app.use((req, res, next) => {
 });
 
 //app.use(express.static("public"));
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  skip: (req,res) => {
+    req.header("referer").endsWith("grocock.email/")
+  }
+});
+
+app.use(limiter)
 
 app.get("/:image/", (req, res) => {
   //res.send("Test");
