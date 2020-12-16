@@ -175,3 +175,18 @@ jobs:
         with:
           sites: '["https://grocock.email"]'
           expected: '[200]'
+  
+  audit:
+      runs-on: ubuntu-latest
+      needs: [build-prod]
+      
+      steps:
+      - name: Audit live URL
+        uses: jakejarvis/lighthouse-action@master
+        with:
+          url: 'https://jarv.is/'
+      - name: Upload results as an artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: report
+          path: './report'
