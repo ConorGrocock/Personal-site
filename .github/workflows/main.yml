@@ -39,6 +39,8 @@ jobs:
       - name: Shutdown Dev
         run: ssh server 'cd /root/website/website_dev; docker-compose -f "./docker-compose.dev.yml" down'
       - name: Build Dev changes
+        run: ssh server 'cd /root/website/website_dev; docker-compose -f "./docker-compose.dev.yml" build'
+      - name: Start Dev changes
         run: ssh server 'cd /root/website/website_dev; docker-compose -f "./docker-compose.dev.yml" up -d'
       
       - name: Sleep for 1 minute
@@ -143,7 +145,9 @@ jobs:
         
       - name: Shutdown Prod
         run: ssh server 'cd /root/website/website_prod; docker-compose -f "./docker-compose.prod.yml" down'
-      - name: Build Prod changes
+      - name: Build Prod
+        run: ssh server 'cd /root/website/website_prod; docker-compose -f "./docker-compose.prod.yml" build'
+      - name: Start Prod
         run: ssh server 'cd /root/website/website_prod; docker-compose -f "./docker-compose.prod.yml" up -d'
       
       - name: Sleep for 1 minute
