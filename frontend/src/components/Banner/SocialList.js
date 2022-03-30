@@ -20,7 +20,7 @@ class SocialList extends Component {
           />
           <SocialLink
             fas="newspaper"
-            link="https://blog.grocock.email"
+            link="https://grocock.email/blog"
             showBackground={false}
             title="Blog"
           />
