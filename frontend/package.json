@@ -13,7 +13,7 @@
     "react-scripts": "4.0.3",
     "react-text-loop": "^2.1.1",
     "request": "^2.88.2",
-    "serve": "^11.2.0",
+    "serve": "^13.0.4",
     "styled-components": "^5.2.1"
   },
   "scripts": {
