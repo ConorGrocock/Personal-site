@@ -5,7 +5,7 @@
   "homepage" : "https://grocock.email",
   "dependencies": {
     "ajv-keywords": "^3.5.2",
-    "axios": "^0.21.1",
+    "axios": "^1.2.5",
     "node-sass": "^5.0.0",
     "npm-run-all": "^4.1.5",
     "react": "^16.14.0",
